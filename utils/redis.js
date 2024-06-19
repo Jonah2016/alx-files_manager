@@ -1,11 +1,11 @@
-import { createClient } from "redis";
-import { promisify } from "util";
+import { createClient } from 'redis';
+import { promisify } from 'util';
 
 // class to define methods for commonly used redis commands
 class RedisClient {
   constructor() {
     this.client = createClient();
-    this.client.on("error", (error) => {
+    this.client.on('error', (error) => {
       console.log(`Redis client not connected to server: ${error}`);
     });
   }
