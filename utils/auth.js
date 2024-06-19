@@ -1,10 +1,10 @@
-import { ObjectID } from 'mongodb';
-import redisClient from './redis';
-import dbClient from './db';
+import { ObjectID } from "mongodb";
+import redisClient from "./redis";
+import dbClient from "./db";
 
 // retrieves authentication token from headers
 async function getAuthToken(request) {
-  const token = request.headers['X-token'];
+  const token = request.headers["X-token"];
   return `auth_${token}`;
 }
 
@@ -17,15 +17,17 @@ async function findUserIdByToken(request) {
 
 // finds a user from db based on ID
 async function findUserById(userId) {
-  const userExistsArray = await dbClient.users.find(`ObjectId("${userId}")`).toArray();
-  return userExistsArray[0] || null;
+  const userExistsArr = await dbClient.users
+    .find(`ObjectId("${userId}")`)
+    .toArray();
+  return userExistsArr[0] || null;
 }
 
 async function getUserById(request) {
-//   const key = getAuthToken(request);
+  //   const key = getAuthToken(request);
   const userId = findUserIdByToken(request);
   if (userId) {
-    const users = dbClient.db.collection('users');
+    const users = dbClient.db.collection("users");
     const objectId = new ObjectID(userId);
     const user = await users.findOne({ _id: objectId });
     if (!user) {
@@ -37,13 +39,13 @@ async function getUserById(request) {
 }
 
 async function getUser(request) {
-  const token = request.header('X-Token');
+  const token = request.header("X-Token");
   const key = `auth_${token}`;
   const userId = await redisClient.get(key);
   if (userId) {
-    const users = dbClient.db.collection('users');
-    const idObject = new ObjectID(userId);
-    const user = await users.findOne({ _id: idObject });
+    const users = dbClient.db.collection("users");
+    const idObj = new ObjectID(userId);
+    const user = await users.findOne({ _id: idObj });
     if (!user) {
       return null;
     }
@@ -52,6 +54,4 @@ async function getUser(request) {
   return null;
 }
 
-export {
-  findUserIdByToken, findUserById, getUserById, getUser,
-};
+export { findUserIdByToken, findUserById, getUserById, getUser };

@@ -1,11 +1,11 @@
-import { createClient } from 'redis';
-import { promisify } from 'util';
+import { createClient } from "redis";
+import { promisify } from "util";
 
 // class to define methods for commonly used redis commands
 class RedisClient {
   constructor() {
     this.client = createClient();
-    this.client.on('error', (error) => {
+    this.client.on("error", (error) => {
       console.log(`Redis client not connected to server: ${error}`);
     });
   }
@@ -34,8 +34,8 @@ class RedisClient {
 
   // del key vale pair from redis server
   async del(key) {
-    const redisDel = promisify(this.client.del).bind(this.client);
-    await redisDel(key);
+    const redisDelete = promisify(this.client.del).bind(this.client);
+    await redisDelete(key);
   }
 }
 
