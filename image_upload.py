@@ -13,5 +13,6 @@ res_json = {'name': file_name, 'type': 'image', 'isPublic': True,
             'data': encoded_file, 'parentId': sys.argv[3]}
 res_headers = {'X-Token': sys.argv[2]}
 
-r = requests.post("http://0.0.0.0:5000/files", json=res_json, headers=res_headers)
+r = requests.post("http://0.0.0.0:5000/files", json=res_json,
+                  headers=res_headers)
 print(r.json())
