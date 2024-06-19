@@ -10,7 +10,7 @@ with open(file_path, "rb") as image_file:
     encoded_file = base64.b64encode(image_file.read()).decode('utf-8')
 
 res_json = {'name': file_name, 'type': 'image', 'isPublic': True,
-          'data': encoded_file, 'parentId': sys.argv[3]}
+            'data': encoded_file, 'parentId': sys.argv[3]}
 res_headers = {'X-Token': sys.argv[2]}
 
 r = requests.post("http://0.0.0.0:5000/files", json=res_json, headers=res_headers)
