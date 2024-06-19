@@ -57,8 +57,9 @@ userQueue.process(async (job, done) => {
   const idObj = new ObjectID(userId);
   const user = await users.findOne({ _id: idObj });
   if (user) {
-    console.log(`Welcome ${user.email}!`);
+    console.log(`Welcome ${user.email} to our website!`);
   } else {
-    done(new Error("User not found"));
+    done(new Error("This user was not found"));
   }
 });
+
