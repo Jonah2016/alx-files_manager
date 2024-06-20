@@ -41,7 +41,7 @@ class FilesController {
     if (!type) {
       return response.status(400).json({ error: 'Missing type' });
     }
-    if (type !== "folder" && !data) {
+    if (type !== 'folder' && !data) {
       return response.status(400).json({ error: 'Missing data' });
     }
 
@@ -65,16 +65,14 @@ class FilesController {
           parentId: parentId || 0,
           isPublic,
         })
-        .then((result) =>
-          response.status(201).json({
-            id: result.insertedId,
-            userId: user._id,
-            name,
-            type,
-            isPublic,
-            parentId: parentId || 0,
-          })
-        )
+        .then((result) => response.status(201).json({
+          id: result.insertedId,
+          userId: user._id,
+          name,
+          type,
+          isPublic,
+          parentId: parentId || 0,
+        }))
         .catch((error) => {
           console.log(error);
         });
@@ -180,7 +178,7 @@ class FilesController {
           // console.log(final);
           return response.status(200).json(final);
         }
-        console.log("Error occured');
+        console.log('Error occured');
         return response.status(404).json({ error: 'Not found' });
       });
     return null;
@@ -205,7 +203,7 @@ class FilesController {
           return response.status(404).json({ error: 'Not found' });
         }
         return response.status(200).json(file.value);
-      }
+      },
     );
     return null;
   }
@@ -229,7 +227,7 @@ class FilesController {
           return response.status(404).json({ error: 'Not found' });
         }
         return response.status(200).json(file.value);
-      }
+      },
     );
     return null;
   }
@@ -247,7 +245,7 @@ class FilesController {
         if (file.type === 'folder') {
           return response
             .status(400)
-            .json({ error: 'A folder doesn't have content' });
+            .json({ error: 'A folder doesn\'t have content' });
         }
         try {
           let fileName = file.localPath;
@@ -274,7 +272,7 @@ class FilesController {
           if (file.type === 'folder') {
             return response
               .status(400)
-              .json({ error: 'A folder doesn't have content' });
+              .json({ error: 'A folder doesn\'t have content' });
           }
           try {
             let fileName = file.localPath;
@@ -293,7 +291,7 @@ class FilesController {
           }
         } else {
           console.log(
-            `Wrong user: file.userId=${file.userId}; userId=${user._id}`
+            `Wrong user: file.userId=${file.userId}; userId=${user._id}`,
           );
           return response.status(404).json({ error: 'Not found' });
         }
